@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Evac Maps | Remote Fire Escape Plan Design Services Worldwide</title>
+<meta name="description" content="Evac Maps designs NFPA, OSHA and international life-safety code compliant fire escape and evacuation plans for businesses worldwide — 100% remote, saving you time and cost." />
+
+<style>
+  :root{
+    --exit-red:#C8102E;
+    --exit-red-dark:#8E0B20;
+    --deep-blue:#0F2B5B;
+    --sign-blue:#1B4694;
+    --amber:#F2A900;
+    --paper:#F7F6F2;
+    --ink:#1B1D22;
+    --ink-soft:#4A4E58;
+    --line:#E2DFD6;
+    --radius:6px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Barlow','Segoe UI',Arial,sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:'Barlow Condensed','Arial Narrow',sans-serif;
+    font-weight:800;
+    letter-spacing:.02em;
+    text-transform:uppercase;
+    color:var(--deep-blue);
+    line-height:1.1;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .container{max-width:1180px;margin:0 auto;padding:0 24px;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+    font-size:12.5px;color:var(--exit-red);
+    margin-bottom:10px;
+  }
+  .eyebrow::before{
+    content:"";width:10px;height:10px;background:var(--exit-red);
+    clip-path:polygon(0 0,100% 50%,0 100%);
+  }
+
+  /* ---------- Hazard stripe divider (signature element) ---------- */
+  .hazard-strip{
+    height:14px;
+    background:repeating-linear-gradient(
+      -45deg,
+      var(--exit-red) 0 18px,
+      #fff 18px 36px
+    );
+  }
+  .hazard-strip.blue{
+    background:repeating-linear-gradient(
+      -45deg,
+      var(--sign-blue) 0 18px,
+      #fff 18px 36px
+    );
+  }
+
+  /* ---------- Top utility bar ---------- */
+  .topbar{
+    background:var(--deep-blue);
+    color:#dfe6f5;
+    font-size:13.5px;
+  }
+  .topbar .container{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-top:8px;padding-bottom:8px;flex-wrap:wrap;gap:6px;
+  }
+  .topbar a.phone{color:#fff;font-weight:700;}
+  .topbar .tag{color:#9fb3da;}
+
+  /* ---------- Nav ---------- */
+  header.nav-wrap{
+    background:#fff;
+    position:sticky;top:0;z-index:50;
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 0;
+  }
+  .logo{
+    display:flex;align-items:center;gap:10px;
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:800;font-size:26px;color:var(--deep-blue);
+    text-transform:uppercase;letter-spacing:.01em;
+  }
+  .logo .badge{
+    width:38px;height:38px;border-radius:50%;
+    background:var(--exit-red);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:18px;font-weight:900;
+    box-shadow:0 0 0 3px #fff, 0 0 0 5px var(--exit-red);
+  }
+  .logo span.accent{color:var(--exit-red);}
+
+  .nav-links{
+    display:flex;gap:34px;list-style:none;
+    font-weight:700;font-size:15px;letter-spacing:.02em;
+  }
+  .nav-links a{
+    position:relative;padding:6px 2px;color:var(--ink);
+  }
+  .nav-links a::after{
+    content:"";position:absolute;left:0;bottom:-2px;width:0;height:3px;
+    background:var(--exit-red);transition:width .2s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+
+  .nav-cta{
+    background:var(--exit-red);color:#fff;
+    padding:11px 22px;border-radius:var(--radius);
+    font-weight:800;letter-spacing:.03em;font-size:14px;text-transform:uppercase;
+    box-shadow:0 4px 0 var(--exit-red-dark);
+    transition:transform .12s ease;
+  }
+  .nav-cta:hover{transform:translateY(-2px);}
+
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+  .burger span{width:26px;height:3px;background:var(--deep-blue);display:block;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    background:
+      linear-gradient(115deg, rgba(15,43,91,.94), rgba(15,43,91,.86)),
+      repeating-linear-gradient(-45deg, #16336b 0 26px, #10285a 26px 52px);
+    color:#fff;
+    padding:90px 0 100px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero .container{
+    display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;
+  }
+  .hero .eyebrow{color:var(--amber);}
+  .hero .eyebrow::before{background:var(--amber);}
+  .hero h1{
+    color:#fff;font-size:clamp(38px,5vw,58px);
+    margin-bottom:20px;
+  }
+  .hero h1 em{
+    font-style:normal;color:var(--exit-red);
+    -webkit-text-stroke:1px #fff;
+  }
+  .hero p.lead{
+    font-size:18px;color:#cfd9ef;max-width:520px;margin-bottom:32px;
+  }
+  .hero-actions{display:flex;gap:16px;flex-wrap:wrap;}
+  .btn{
+    display:inline-block;padding:15px 28px;border-radius:var(--radius);
+    font-weight:800;text-transform:uppercase;letter-spacing:.03em;font-size:14.5px;
+  }
+  .btn-primary{
+    background:var(--exit-red);color:#fff;
+    box-shadow:0 5px 0 var(--exit-red-dark);
+  }
+  .btn-primary:hover{transform:translateY(-2px);}
+  .btn-outline{
+    background:transparent;color:#fff;border:2px solid #fff;
+  }
+  .btn-outline:hover{background:#fff;color:var(--deep-blue);}
+
+  /* exit sign illustration */
+  .exit-sign{
+    background:#0b1f45;
+    border:6px solid var(--exit-red);
+    border-radius:10px;
+    padding:34px 20px;
+    text-align:center;
+    box-shadow:0 20px 50px rgba(0,0,0,.35);
+    position:relative;
+  }
+  .exit-sign::before{
+    content:"";position:absolute;inset:-6px;
+    border-radius:14px;
+    box-shadow:0 0 40px 6px rgba(200,16,46,.55);
+    pointer-events:none;
+  }
+  .exit-sign .run{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:900;font-size:52px;letter-spacing:.06em;color:#fff;
+  }
+  .exit-sign .sub{
+    margin-top:10px;color:#ffc9c9;font-weight:700;letter-spacing:.15em;font-size:13px;
+  }
+  .exit-sign .arrow{
+    margin-top:18px;font-size:34px;color:var(--exit-red);
+  }
+  .hero-stats{
+    display:flex;justify-content:space-between;margin-top:26px;
+    font-family:'Barlow Condensed',sans-serif;
+  }
+  .hero-stats div{text-align:center;}
+  .hero-stats b{display:block;font-size:26px;color:#fff;}
+  .hero-stats span{font-size:11px;color:#9fb3da;letter-spacing:.08em;text-transform:uppercase;}
+
+  /* ---------- Trust strip ---------- */
+  .trust{
+    background:#fff;padding:26px 0;border-bottom:1px solid var(--line);
+  }
+  .trust .container{
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:18px;
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    font-size:14px;color:var(--ink-soft);
+  }
+  .trust span{color:var(--exit-red);font-weight:900;}
+
+  /* ---------- Section basics ---------- */
+  section{padding:86px 0;}
+  .section-head{max-width:640px;margin-bottom:48px;}
+  .section-head h2{font-size:clamp(28px,3.4vw,40px);}
+  .section-head p{color:var(--ink-soft);font-size:16.5px;margin-top:12px;}
+  .section-alt{background:#fff;}
+
+  /* ---------- Why choose grid (About) ---------- */
+  .why-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:26px;
+  }
+  .why-card{
+    background:#fff;border:1px solid var(--line);border-left:5px solid var(--exit-red);
+    border-radius:var(--radius);padding:26px 24px;
+  }
+  .section-alt .why-card{background:var(--paper);}
+  .why-card h3{
+    font-size:19px;color:var(--deep-blue);margin-bottom:8px;
+    text-transform:none;letter-spacing:0;font-weight:800;
+  }
+  .why-card p{color:var(--ink-soft);font-size:15px;}
+  .why-card .num{
+    font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;
+    color:var(--exit-red);letter-spacing:.1em;margin-bottom:10px;display:block;
+  }
+
+  /* ---------- About split ---------- */
+  .about-split{
+    display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center;
+  }
+  .about-split .frame{
+    background:var(--deep-blue);border-radius:10px;padding:8px;
+  }
+  .about-split .frame-inner{
+    border:2px dashed rgba(255,255,255,.35);
+    border-radius:6px;padding:40px 24px;text-align:center;color:#fff;
+  }
+  .about-split .frame-inner .ico{font-size:44px;margin-bottom:14px;}
+  .about-split .frame-inner b{
+    display:block;font-family:'Barlow Condensed',sans-serif;
+    text-transform:uppercase;letter-spacing:.08em;font-size:14px;color:var(--amber);
+  }
+  .about-list{list-style:none;margin-top:22px;}
+  .about-list li{
+    display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line);
+    color:var(--ink-soft);font-size:15.5px;
+  }
+  .about-list li b{color:var(--deep-blue);}
+  .about-list li::before{
+    content:"✓";color:var(--exit-red);font-weight:900;flex-shrink:0;
+  }
+
+  /* ---------- Services ---------- */
+  .services-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:26px;
+  }
+  .service-card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;transition:box-shadow .2s ease, transform .2s ease;
+  }
+  .service-card:hover{box-shadow:0 16px 30px rgba(15,43,91,.14);transform:translateY(-3px);}
+  .service-top{
+    background:var(--sign-blue);color:#fff;padding:22px 22px 18px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .service-top .ico{
+    width:42px;height:42px;border-radius:50%;background:var(--exit-red);
+    display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;
+  }
+  .service-top h3{
+    color:#fff;font-size:19px;letter-spacing:.01em;text-transform:none;font-weight:800;
+  }
+  .service-body{padding:20px 22px 24px;}
+  .service-body p{color:var(--ink-soft);font-size:15px;margin-bottom:14px;}
+  .service-body ul{list-style:none;font-size:14px;color:var(--ink-soft);}
+  .service-body ul li{padding:4px 0;padding-left:18px;position:relative;}
+  .service-body ul li::before{
+    content:"—";position:absolute;left:0;color:var(--exit-red);
+  }
+
+  /* ---------- Process ---------- */
+  .process{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:22px;
+  }
+  .process .step{text-align:center;position:relative;padding:0 8px;}
+  .process .step .n{
+    width:52px;height:52px;border-radius:50%;
+    background:var(--deep-blue);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;
+    margin:0 auto 14px;border:4px solid var(--amber);
+  }
+  .process .step h4{font-size:16px;color:var(--deep-blue);margin-bottom:6px;}
+  .process .step p{font-size:13.5px;color:var(--ink-soft);}
+
+  /* ---------- CTA banner ---------- */
+  .cta-banner{
+    background:linear-gradient(120deg,var(--exit-red),var(--exit-red-dark));
+    color:#fff;text-align:center;padding:64px 0;
+  }
+  .cta-banner h2{color:#fff;font-size:clamp(26px,3.6vw,38px);margin-bottom:14px;}
+  .cta-banner p{color:#ffd9dc;margin-bottom:26px;font-size:16px;}
+  .cta-banner .btn-outline{border-color:#fff;}
+  .cta-banner .call{
+    font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;
+    letter-spacing:.04em;margin-top:20px;
+  }
+
+  /* ---------- Contact ---------- */
+  .contact-wrap{
+    display:grid;grid-template-columns:.95fr 1.05fr;gap:50px;
+  }
+  .contact-info h2{margin-bottom:14px;}
+  .contact-info p{color:var(--ink-soft);margin-bottom:26px;}
+  .info-row{display:flex;gap:14px;margin-bottom:20px;align-items:flex-start;}
+  .info-row .ico{
+    width:44px;height:44px;border-radius:50%;background:var(--deep-blue);color:#fff;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;
+  }
+  .info-row b{display:block;color:var(--deep-blue);font-size:15px;}
+  .info-row span{color:var(--ink-soft);font-size:14.5px;}
+
+  form.quote-form{
+    background:#fff;border:1px solid var(--line);border-top:5px solid var(--exit-red);
+    border-radius:var(--radius);padding:32px;
+    box-shadow:0 18px 40px rgba(15,43,91,.08);
+  }
+  form.quote-form h3{
+    font-size:20px;color:var(--deep-blue);margin-bottom:18px;
+    text-transform:none;letter-spacing:0;
+  }
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+  .form-row.full{grid-template-columns:1fr;}
+  label{
+    display:block;font-size:12.5px;font-weight:700;letter-spacing:.05em;
+    text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px;
+  }
+  input,select,textarea{
+    width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius);
+    font-family:inherit;font-size:14.5px;color:var(--ink);background:var(--paper);
+  }
+  input:focus,select:focus,textarea:focus{
+    outline:2px solid var(--sign-blue);outline-offset:1px;background:#fff;
+  }
+  textarea{resize:vertical;min-height:100px;}
+  .submit-btn{
+    width:100%;background:var(--exit-red);color:#fff;border:none;
+    padding:15px;border-radius:var(--radius);font-weight:800;font-size:15px;
+    text-transform:uppercase;letter-spacing:.04em;cursor:pointer;
+    box-shadow:0 5px 0 var(--exit-red-dark);
+  }
+  .submit-btn:hover{transform:translateY(-2px);}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--deep-blue);color:#c7d3ec;padding:56px 0 0;}
+  .footer-grid{
+    display:grid;grid-template-columns:1.4fr 1fr 1fr 1.1fr;gap:36px;
+    padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.12);
+  }
+  .footer-grid h4{color:#fff;font-size:15px;margin-bottom:16px;letter-spacing:.06em;}
+  .footer-grid .flogo{
+    font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:800;
+    color:#fff;text-transform:uppercase;margin-bottom:12px;
+  }
+  .footer-grid .flogo span{color:var(--exit-red);}
+  .footer-grid p{font-size:14px;color:#9fb3da;}
+  .footer-grid ul{list-style:none;}
+  .footer-grid ul li{margin-bottom:9px;}
+  .footer-grid ul li a{font-size:14px;color:#c7d3ec;}
+  .footer-grid ul li a:hover{color:var(--amber);}
+  .footer-bottom{
+    text-align:center;padding:20px 0;font-size:13px;color:#7f93bf;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media(max-width:960px){
+    .hero .container{grid-template-columns:1fr;}
+    .why-grid,.services-grid{grid-template-columns:repeat(2,1fr);}
+    .about-split{grid-template-columns:1fr;}
+    .process{grid-template-columns:repeat(2,1fr);gap:30px 20px;}
+    .contact-wrap{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:720px){
+    .nav-links{
+      position:fixed;top:73px;left:0;right:0;background:#fff;
+      flex-direction:column;gap:0;
+      max-height:0;overflow:hidden;transition:max-height .25s ease;
+      border-bottom:1px solid var(--line);
+    }
+    .nav-links.open{max-height:320px;}
+    .nav-links li{width:100%;border-top:1px solid var(--line);}
+    .nav-links a{display:block;padding:16px 24px;}
+    .nav-cta{display:none;}
+    .burger{display:flex;}
+    .why-grid,.services-grid,.process{grid-template-columns:1fr;}
+    .form-row{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    .trust .container{justify-content:flex-start;}
+    section{padding:60px 0;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ TOP UTILITY BAR ============ -->
+<div class="topbar">
+  <div class="container">
+    <span class="tag">Serving businesses &amp; property managers worldwide — 100% remote</span>
+    <a href="tel:+923181417910" class="phone">📞 +92 318 1417910</a>
+  </div>
+</div>
+
+<!-- ============ NAV ============ -->
+<header class="nav-wrap">
+  <div class="container">
+    <nav>
+      <a href="#home" class="logo">
+        <span class="badge">E</span>
+        Evac<span class="accent">Maps</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+      </ul>
+      <a href="#contact" class="nav-cta">Get Free Quote</a>
+      <button class="burger" id="burgerBtn" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </div>
+</header>
+<div class="hazard-strip"></div>
+
+<!-- ============ HOME / HERO ============ -->
+<section class="hero" id="home">
+  <div class="container">
+    <div>
+      <div class="eyebrow">Fire Escape Plan Design Services</div>
+      <h1>Clear paths out. <em>Every</em> time it matters.</h1>
+      <p class="lead">Evac Maps designs code-compliant fire escape and evacuation plans for offices, hotels, schools and warehouses worldwide — a fully remote service built to NFPA 101 and OSHA standards, saving you time and cost with no site visit required.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">Get a Free Quote</a>
+        <a href="#services" class="btn btn-outline">See Our Services</a>
+      </div>
+    </div>
+    <div>
+      <div class="exit-sign">
+        <div class="run">ESCAPE SIGNS</div>
+        <div class="sub">Life Safety Signage &amp; Planning</div>
+        <div class="arrow">➜</div>
+      </div>
+      <div class="hero-stats">
+        <div><b>500+</b><span>Sites Designed</span></div>
+        <div><b>100%</b><span>Code Compliant</span></div>
+        <div><b>48 hrs</b><span>Draft Turnaround</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="hazard-strip blue"></div>
+
+<!-- ============ TRUST STRIP ============ -->
+<div class="trust">
+  <div class="container">
+    <div><span>✓</span> NFPA 101 Aligned</div>
+    <div><span>✓</span> OSHA Standard</div>
+    <div><span>✓</span> IBC / IFC Referenced</div>
+    <div><span>✓</span> Worldwide Remote Service</div>
+  </div>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="container">
+    <div class="about-split">
+      <div class="frame">
+        <div class="frame-inner">
+          <div class="ico">🧭</div>
+          <b>12+ Years Combined Design Experience</b>
+        </div>
+      </div>
+      <div>
+        <div class="eyebrow">About Us</div>
+        <h2>Signage that gets people out safely, first time, every time</h2>
+        <p style="color:var(--ink-soft);margin-top:12px;">
+          Evac Maps is a dedicated evacuation-planning studio. We work 100% remotely with facility managers, architects and safety officers around the world, turning floor plans into evacuation maps and escape route signage that people can actually read under pressure — clear, compliant, and delivered without the cost or delay of an on-site visit.
+        </p>
+        <ul class="about-list">
+          <li><b>Fast turnaround</b> — Most projects delivered in 1–3 business days.</li>
+          <li><b>Worldwide coverage</b> — Fully remote design process, wherever your building is located.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY CHOOSE US ============ -->
+<section class="section-alt">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Why Choose Us</div>
+      <h2>Built around one job: getting people out</h2>
+      <p>Every plan we design is reviewed against current life-safety code and built to hold up on the wall for years, not just look good in a proof.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="num">01</span>
+        <h3>Code-First Design</h3>
+        <p>Every escape plan is checked against NFPA 101, OSHA and local fire code before it goes to print.</p>
+      </div>
+      <div class="why-card">
+        <span class="num">02</span>
+        <h3>Custom to Your Floor Plan</h3>
+        <p>No generic templates — we map real exits, extinguishers, and assembly points for your actual building.</p>
+      </div>
+      <div class="why-card">
+        <span class="num">03</span>
+        <h3>Fast, Reliable Turnaround</h3>
+        <p>Most projects move from sketch to ready-to-install signage in under two weeks.</p>
+      </div>
+      <div class="why-card">
+        <span class="num">04</span>
+        <h3>Durable, Print-Ready Files</h3>
+        <p>High-resolution, photoluminescent-ready artwork for indoor and industrial-grade signage.</p>
+      </div>
+      <div class="why-card">
+        <span class="num">05</span>
+        <h3>Free Consultation</h3>
+        <p>Send a sketch or floor plan and get a no-obligation quote within one business day.</p>
+      </div>
+      <div class="why-card">
+        <span class="num">06</span>
+        <h3>Worldwide Remote Service</h3>
+        <p>Remote design and shipping to every state, with local-code awareness baked into the process.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Our Services</div>
+      <h2>Fire escape &amp; evacuation design, start to finish</h2>
+      <p>From the first floor-plan sketch to installation-ready signage, here's what we handle for you.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-top">
+          <div class="ico">🗺️</div>
+          <h3>Evacuation Map Design</h3>
+        </div>
+        <div class="service-body">
+          <p>Custom "You Are Here" evacuation maps built from your actual floor plan.</p>
+          <ul>
+            <li>Primary &amp; secondary routes</li>
+            <li>Extinguisher &amp; pull-station icons</li>
+            <li>Assembly point mapping</li>
+          </ul>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-top">
+          <div class="ico">🚪</div>
+          <h3>Fire Escape Route Signs</h3>
+        </div>
+        <div class="service-body">
+          <p>Directional and exit signage designed for hallways, stairwells and shared spaces.</p>
+          <ul>
+            <li>Photoluminescent options</li>
+            <li>ADA-aware layouts</li>
+            <li>Weatherproof outdoor signs</li>
+          </ul>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-top">
+          <div class="ico">🏢</div>
+          <h3>Multi-Site Facility Plans</h3>
+        </div>
+        <div class="service-body">
+          <p>Standardized evacuation planning across chains, campuses and portfolios.</p>
+          <ul>
+            <li>Brand-consistent templates</li>
+            <li>Bulk site rollout</li>
+            <li>Centralized revisions</li>
+          </ul>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-top">
+          <div class="ico">🏨</div>
+          <h3>Hotel &amp; Hospitality Signage</h3>
+        </div>
+        <div class="service-body">
+          <p>Guest-room and hallway evacuation diagrams that meet hospitality code needs.</p>
+          <ul>
+            <li>In-room placards</li>
+            <li>Common-area maps</li>
+            <li>Custom branding</li>
+          </ul>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-top">
+          <div class="ico">🏫</div>
+          <h3>School &amp; Campus Plans</h3>
+        </div>
+        <div class="service-body">
+          <p>Classroom-ready, easy-to-read evacuation signage for schools and campuses.</p>
+          <ul>
+            <li>Classroom-specific maps</li>
+            <li>Gym &amp; hallway coverage</li>
+            <li>Local fire-marshal ready</li>
+          </ul>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-top">
+          <div class="ico">🏭</div>
+          <h3>Industrial &amp; Warehouse</h3>
+        </div>
+        <div class="service-body">
+          <p>Large-format, high-durability plans for warehouses and manufacturing floors.</p>
+          <ul>
+            <li>Up to 36" large-format</li>
+            <li>Safety equipment mapping</li>
+            <li>Waterproof sign options</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="hazard-strip"></div>
+
+<!-- ============ PROCESS ============ -->
+<section class="section-alt">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">How It Works</div>
+      <h2>Four steps from floor plan to finished sign</h2>
+    </div>
+    <div class="process">
+      <div class="step">
+        <div class="n">1</div>
+        <h4>Send Your Layout</h4>
+        <p>Upload a floor plan, sketch, or blueprint — no perfect drawing required.</p>
+      </div>
+      <div class="step">
+        <div class="n">2</div>
+        <h4>We Design</h4>
+        <p>Our team drafts a code-checked evacuation map and route signage.</p>
+      </div>
+      <div class="step">
+        <div class="n">3</div>
+        <h4>You Approve</h4>
+        <p>Review the proof and request any revisions before we finalize.</p>
+      </div>
+      <div class="step">
+        <div class="n">4</div>
+        <h4>We Deliver</h4>
+        <p>Get print-ready files, or have installation-ready signs shipped to you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA BANNER ============ -->
+<div class="cta-banner">
+  <div class="container">
+    <h2>Get your free evacuation plan quote in minutes</h2>
+    <p>No obligation. Upload a sketch or floor plan and we'll send a detailed quote.</p>
+    <a href="#contact" class="btn btn-outline">Request a Free Quote</a>
+    <div class="call">Or call now: +92 318 1417910</div>
+  </div>
+</div>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-wrap">
+      <div class="contact-info">
+        <div class="eyebrow">Contact Us</div>
+        <h2>Let's plan your exits</h2>
+        <p>Tell us about your building and we'll get back to you with a free, no-obligation quote — usually within one business day.</p>
+
+        <div class="info-row">
+          <div class="ico">📞</div>
+          <div><b>Call Us</b><span>+92 318 1417910 (Mon–Fri)</span></div>
+        </div>
+        <div class="info-row">
+          <div class="ico">✉️</div>
+          <div><b>Email</b><span>fireevacs@gmail.com</span></div>
+        </div>
+        <div class="info-row">
+          <div class="ico">📍</div>
+          <div><b>Service Area</b><span>100% remote — clients served worldwide, no site visit needed</span></div>
+        </div>
+      </div>
+
+      <form class="quote-form" onsubmit="alert('Thanks! This is a demo form — connect it to your email or Blogger contact widget.'); return false;">
+        <h3>Request a Free Quote</h3>
+        <div class="form-row">
+          <div>
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" required="required" />
+          </div>
+          <div>
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" required="required" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div>
+            <label for="email">Email</label>
+            <input type="email" id="email" required="required" />
+          </div>
+          <div>
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" />
+          </div>
+        </div>
+        <div class="form-row full">
+          <div>
+            <label for="btype">Building Type</label>
+            <select id="btype">
+              <option>Office</option>
+              <option>Hotel / Hospitality</option>
+              <option>School / Campus</option>
+              <option>Warehouse / Industrial</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row full">
+          <div>
+            <label for="msg">Tell us about your project</label>
+            <textarea id="msg" placeholder="Building size, number of floors, timeline..."></textarea>
+          </div>
+        </div>
+        <button type="submit" class="submit-btn">Send Request</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="flogo">Evac<span>Maps</span></div>
+        <p>Fire escape plan and evacuation map design services for businesses worldwide. 100% remote, code-compliant, custom-built, delivered fast.</p>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Evacuation Maps</a></li>
+          <li><a href="#services">Escape Route Signs</a></li>
+          <li><a href="#services">Hotel Signage</a></li>
+          <li><a href="#services">Industrial Plans</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get In Touch</h4>
+        <p>+92 318 1417910</p>
+        <p>fireevacs@gmail.com</p>
+        <p>100% remote — serving clients worldwide</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Evac Maps. All rights reserved. | Privacy Policy | Terms of Service
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('burgerBtn').addEventListener('click', function(){
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>

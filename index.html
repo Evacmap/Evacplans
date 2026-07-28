@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="google-site-verification" content="bawSWdSULmxnsIwWU7KmaVKmErbtu4fSXneSyd81Gbo" />
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Evac Maps | Remote Fire Escape Plan Design Services Worldwide</title>
@@ -727,7 +726,7 @@
         </div>
       </div>
 
-      <form class="quote-form" action="https://formsubmit.co/fireevacs@gmail.com" method="POST">
+      <form class="quote-form" id="quoteForm" action="https://formsubmit.co/ajax/fireevacs@gmail.com" method="POST">
         <input type="hidden" name="_subject" value="New Quote Request - Evac Maps Website" />
         <input type="hidden" name="_captcha" value="false" />
         <input type="text" name="_honey" style="display:none" />
@@ -770,7 +769,13 @@
             <textarea id="msg" name="Project Details" placeholder="Building size, number of floors, timeline..."></textarea>
           </div>
         </div>
-        <button type="submit" class="submit-btn">Send Request</button>
+        <button type="submit" class="submit-btn" id="submitBtn">Send Request</button>
+        <div id="formSuccessMsg" style="display:none; margin-top:16px; padding:16px 18px; background:#e9f7ee; border:1px solid #b7e4c7; border-radius:6px; color:#1e5631; font-weight:600; text-align:center;">
+          ✅ Thanks! Our team will contact you shortly.
+        </div>
+        <div id="formErrorMsg" style="display:none; margin-top:16px; padding:16px 18px; background:#fdeceb; border:1px solid #f5b5b0; border-radius:6px; color:#8e0b20; font-weight:600; text-align:center;">
+          Something went wrong. Please try again or call us directly.
+        </div>
       </form>
     </div>
   </div>
@@ -818,6 +823,41 @@
 <script>
   document.getElementById('burgerBtn').addEventListener('click', function(){
     document.getElementById('navLinks').classList.toggle('open');
+  });
+
+  var quoteForm = document.getElementById('quoteForm');
+  var submitBtn = document.getElementById('submitBtn');
+  var successMsg = document.getElementById('formSuccessMsg');
+  var errorMsg = document.getElementById('formErrorMsg');
+
+  quoteForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    errorMsg.style.display = 'none';
+    successMsg.style.display = 'none';
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    var formData = new FormData(quoteForm);
+
+    fetch(quoteForm.action, {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(function(response){
+      if (response.ok) {
+        quoteForm.reset();
+        submitBtn.style.display = 'none';
+        successMsg.style.display = 'block';
+      } else {
+        throw new Error('Submission failed');
+      }
+    })
+    .catch(function(){
+      errorMsg.style.display = 'block';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send Request';
+    });
   });
 </script>
 

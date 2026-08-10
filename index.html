@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- SEO & Verification Tags -->
+  <title>Evac Maps | Remote Fire Escape Plan Design Services Worldwide</title>
+  <meta name="description" content="Evac Maps designs NFPA, OSHA and international life-safety code compliant fire escape and evacuation plans for businesses worldwide — 100% remote, saving you time and cost." />
+  <meta name="robots" content="index, follow">
   <meta name="yandex-verification" content="06a74c7e6bc8f92c"/>
   <meta name="msvalidate.01" content="DA7A7727748FCFB4F76E3BC172BA5459" />
   <meta name="google-site-verification" content="bawSWdSULmxnsIwWU7KmaVKmErbtu4fSXneSyd81Gbo" />
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Evac Maps | Remote Fire Escape Plan Design Services Worldwide</title>
-<meta name="description" content="Evac Maps designs NFPA, OSHA and international life-safety code compliant fire escape and evacuation plans for businesses worldwide — 100% remote, saving you time and cost." />
+
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://evacplans.github.io/Evacplans/">
+  <meta property="og:title" content="Evac Maps | Remote Fire Escape Plan Design Services Worldwide">
+  <meta property="og:description" content="Code-compliant fire escape and evacuation plans designed 100% remote for businesses worldwide.">
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="Evac Maps | Remote Fire Escape Plan Design Services Worldwide">
+  <meta property="twitter:description" content="Code-compliant fire escape and evacuation plans designed 100% remote for businesses worldwide.">
 
 <style>
   :root{
@@ -822,8 +834,18 @@
 </footer>
 
 <script>
-  document.getElementById('burgerBtn').addEventListener('click', function(){
-    document.getElementById('navLinks').classList.toggle('open');
+  const burgerBtn = document.getElementById('burgerBtn');
+  const navLinks = document.getElementById('navLinks');
+
+  burgerBtn.addEventListener('click', function(){
+    navLinks.classList.toggle('open');
+  });
+
+  // Mobile menu ko link click hone par automatically close karne ke liye
+  document.querySelectorAll('#navLinks a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+    });
   });
 
   var quoteForm = document.getElementById('quoteForm');
